@@ -5,6 +5,9 @@
  */
 package FloopyLand;
 
+import com.pauliankline.floopyconnector.Floopy;
+import com.pauliankline.floopyconnector.GameController;
+
 /**
  *
  * @author paul.kline
@@ -15,7 +18,8 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Floopy floop = new Floopy(new MyController());
+        floop.begin(3);
     }
     
 }
