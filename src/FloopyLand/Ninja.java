@@ -19,6 +19,7 @@ public class Ninja extends Heroes{
         super.maxHp = 1000;
         super.name = "Ninja";
         super.type = "Ninja";
+        super.color = "black";
     }
     
 }

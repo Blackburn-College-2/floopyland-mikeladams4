@@ -19,6 +19,7 @@ public class Thief extends Heroes {
         super.maxHp = 1000;
         super.name = "Thief";
         super.type = "Thief";
+        super.color = "brown";
     }
 
 }

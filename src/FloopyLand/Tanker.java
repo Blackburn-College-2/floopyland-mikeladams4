@@ -20,6 +20,7 @@ public class Tanker extends Heroes{
         super.hp = maxHp;
         super.name = "Tanker";
         super.type = "Tanker";
+        super.color = "blue";
     }
     
 }

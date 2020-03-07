@@ -21,9 +21,6 @@ public class Healer extends Heroes{
         super.maxHp = 1000;
         super.name = "Healer";
         super.type = "Healer";
-    }
-    
-    @Override
-    public void Attack(Heroes enemy){
+        super.color = "green";
     }
 }

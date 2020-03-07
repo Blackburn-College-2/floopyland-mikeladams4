@@ -19,6 +19,8 @@ public class Soldier extends Heroes{
         super.maxHp = 1000;
         super.name = "Soldier";
         super.type = "Soldier";
+        super.color = "red";
+        super.inventorySize = 4;
     }
     
 }

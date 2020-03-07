@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * @author adams
  */
 public class MyController extends GameController {
-
+    
     @Override
     public ArrayList<BaseHero> createHeroes(GameBoard gb, int i) {
         ArrayList<BaseHero> heroes = new ArrayList<>();
@@ -24,28 +24,31 @@ public class MyController extends GameController {
             int x = (int) (Math.random() * 9) + 1;
             int y = (int) (Math.random() * 9) + 1;
             int z = (int) (Math.random() * 4) + 1;
-            System.out.println(x + " " + y);
-            Heroes p = null;
             if (z == 0) {
-                p = new Healer(gb, new Point(x,y));
+                heroes.add(new Healer(gb, new Point(x, y)));
             } else if (z == 1) {
-                p = new Tanker(gb, new Point(x,y));
+                heroes.add(new Tanker(gb, new Point(x, y)));
             } else if (z == 2) {
-                p = new Thief(gb, new Point(x,y));
+                heroes.add(new Thief(gb, new Point(x, y)));
             } else if (z == 3) {
-                p = new Ninja(gb, new Point(x,y));
+                heroes.add(new Ninja(gb, new Point(x, y)));
             } else if (z == 4) {
-                p = new Soldier(gb, new Point(x,y));
+                heroes.add(new Soldier(gb, new Point(x, y)));
             }
-            heroes.add(p);
         }
         return heroes;
     }
-
+    
     @Override
     public GameBoard mkGameBoard() {
         GameBoard board = new GameBoard();
+        board.getGameSquare(new Point((int) (Math.random() * 9) + 1, (int) (Math.random() * 9) + 1)).addItem(new Tome());
+        board.getGameSquare(new Point((int) (Math.random() * 9) + 1, (int) (Math.random() * 9) + 1)).addItem(new Tome());
+        board.getGameSquare(new Point((int) (Math.random() * 9) + 1, (int) (Math.random() * 9) + 1)).addItem(new Tome());
+        board.getGameSquare(new Point((int) (Math.random() * 9) + 1, (int) (Math.random() * 9) + 1)).addItem(new Tome());
+        board.getGameSquare(new Point((int) (Math.random() * 9) + 1, (int) (Math.random() * 9) + 1)).addItem(new Tome());
+        board.getGameSquare(new Point((int) (Math.random() * 9) + 1, (int) (Math.random() * 9) + 1)).addItem(new Tome());
         return board;
     }
-
+    
 }

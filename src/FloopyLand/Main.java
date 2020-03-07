@@ -19,7 +19,7 @@ public class Main {
      */
     public static void main(String[] args) {
         Floopy floop = new Floopy(new MyController());
-        floop.begin(3);
+        floop.begin(2);
     }
     
 }
