@@ -21,12 +21,15 @@ public class Heroes extends BaseHero {
     Battle battle;
     Heroes enemy;
     boolean dead;
+    StrengthPotion strength;
+    boolean strengthActive = false;
 
     public Heroes(GameBoard gameboard, Point location) {
         super(gameboard, location);
         this.gameboard.getGameSquare(location).addHero(this);
         super.maxDamage = 100;
         super.inventorySize = 3;
+        super.maxHp = 1000;
     }
 
     public void newKill() {
@@ -45,13 +48,48 @@ public class Heroes extends BaseHero {
         battle = x;
     }
 
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int x) {
+        hp = x;
+    }
+
+    public int getMaxdamage() {
+        return maxDamage;
+    }
+
+    public void setMaxdamage(int x) {
+        maxDamage = x;
+    }
+
+    public ArrayList<Item> getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(ArrayList<Item> items) {
+        inventory = items;
+    }
+
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    public Point getLocation() {
+        return location;
+    }
+
+    public int getInventorySize() {
+        return inventorySize;
+    }
+
     public int attack() {
-        System.out.println("attack");
+        System.out.println(maxDamage);
         return maxDamage;
     }
 
     public int takeAttack(Heroes attacker, double damage) {
-        System.out.println("take attack");
         boolean Tome = false;
         if (!inventory.isEmpty()) {
             for (int i = 0; i < inventory.size(); i++) {
@@ -63,14 +101,13 @@ public class Heroes extends BaseHero {
         if (Tome == true) {
             hp = hp - (int) (damage * .9);
             attacker.hp = attacker.hp - (int) ((damage * .1) * .1);
-            System.out.println("Tome damage");
         } else {
             hp = hp - (int) damage;
-            System.out.println("Normal Damage");
         }
         if (hp <= 0) {
             die();
         }
+        System.out.println(damage);
         return (int) damage;
     }
 
@@ -79,14 +116,22 @@ public class Heroes extends BaseHero {
         if (inventorySize > inventory.size()) {
             if (items.size() > x) {
                 this.inventory.add(items.get(x));
+                gameboard.getGameSquare(location).getItems().remove(x);
                 x = x + 1;
             }
         }
     }
 
+    public void drinkPotion(Potion x) {
+        x.consume(this);
+        if (x.isEmpty() == true) {
+            inventory.remove(x);
+        }
+    }
 
     public ArrayList<Heroes> checkAround() {
         int i = 0;
+        int x = 0;
         ArrayList<Heroes> heroes = new ArrayList();
         Point up = new Point(location.x, location.y - 1);
         Point down = new Point(location.x, location.y + 1);
@@ -97,7 +142,6 @@ public class Heroes extends BaseHero {
         Point upRight = new Point(location.x + 1, location.y - 1);
         Point downRight = new Point(location.x + 1, location.y + 1);
         heroes.add(check(up));
-        System.out.println(this + " " + up.x + " " + up.y);
         heroes.add(check(down));
         heroes.add(check(left));
         heroes.add(check(right));
@@ -110,6 +154,13 @@ public class Heroes extends BaseHero {
                 heroes.remove(i);
             } else {
                 i++;
+            }
+        }
+        while (x < heroes.size()) {
+            if (heroes.get(x).inBattle) {
+                heroes.remove(x);
+            } else {
+                x++;
             }
         }
         return heroes;
@@ -140,7 +191,19 @@ public class Heroes extends BaseHero {
     }
 
     public void fight(ArrayList<Heroes> heroes) {
-        battle = new Battle(this, checkAround().get(0));
+        Heroes highestHp = heroes.get(0);
+        for (int i = 0; i < heroes.size(); i++){
+            if (heroes.get(i).hp > highestHp.hp){
+                highestHp = heroes.get(i);
+            }
+        }
+        battle = new Battle(this, highestHp);
+    }
+
+    public void moveTo(Point point) {
+        gameboard.getGameSquare(location).removeHero(this);
+        gameboard.getGameSquare(point).addHero(this);
+        location = point;
     }
 
     public void move() {
@@ -230,13 +293,31 @@ public class Heroes extends BaseHero {
 
     @Override
     public void gameTickAction(long l) {
+        boolean potionUsed = false;
         if (dead == false) {
             if (inBattle == false) {
                 if (checkAround().isEmpty() == false) {
                     fight(checkAround());
                 }
                 if (inBattle == false) {
-                    move();
+                    if (gameboard.getGameSquare(location).hasItems() == true) {
+                        pickUpItems(gameboard.getGameSquare(location).getItems());
+                    }
+                    int x = (int) (Math.random() * 2) + 1;
+                    if (x == 1) {
+                        for (int i = 0; i < inventory.size(); i++) {
+                            if (inventory.get(i) instanceof Potion) {
+                                drinkPotion((Potion) inventory.get(i));
+                                potionUsed = true;
+                            }
+                        }
+                        if (potionUsed == false) {
+                            move();
+
+                        }
+                    } else {
+                        move();
+                    }
                     if (gameboard.getGameSquare(location).hasItems() == true) {
                         pickUpItems(gameboard.getGameSquare(location).getItems());
                     }
@@ -246,7 +327,9 @@ public class Heroes extends BaseHero {
                 }
             } else {
                 battle.tick();
-                System.out.println("yes");
+            }
+            if (strengthActive) {
+                strength.tick(this);
             }
         }
     }
@@ -254,6 +337,12 @@ public class Heroes extends BaseHero {
     @Override
     protected void die() {
         gameboard.getGameSquare(location).getHeroesPresent().remove(this);
+        for (int i = 0; i < inventory.size(); i++){
+            if (!(inventory.get(i) == null)){
+                gameboard.getGameSquare(location).addItem(inventory.get(i));
+                inventory.remove(inventory.get(i));
+            }
+        }
         dead = true;
     }
 

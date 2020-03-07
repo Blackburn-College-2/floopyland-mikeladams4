@@ -16,7 +16,6 @@ public class Thief extends Heroes {
 
     public Thief(GameBoard gameboard, Point location) {
         super(gameboard, location);
-        super.maxHp = 1000;
         super.name = "Thief";
         super.type = "Thief";
         super.color = "brown";

@@ -5,16 +5,23 @@
  */
 package FloopyLand;
 
-import com.pauliankline.floopyconnector.Item;
-
 /**
  *
  * @author adams
  */
-public class Items extends Item {
+public abstract class Potion extends Items {
 
-    public Items(String name) {
+    int uses = 4;
+    boolean empty = false;
+    
+    public Potion(String name) {
         super(name);
+    }
+    
+    public abstract void consume(Heroes x);
+    
+    public boolean isEmpty(){
+        return empty;
     }
     
 }

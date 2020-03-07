@@ -5,6 +5,9 @@
  */
 package FloopyLand;
 
+import com.pauliankline.floopyconnector.Item;
+import java.util.ArrayList;
+
 /**
  *
  * @author adams
@@ -34,20 +37,86 @@ public class Battle {
 
     public void tick() {
         if (turnTaken == false) {
-            two.takeAttack(one, one.attack());
-            if (two.isDead()) {
-                one.setInBattle(false);
-                one.setBattle(null);
-                one.newKill();
-                two.setInBattle(false);
-                two.setBattle(null);
+            int y = (int) (Math.random() * 3) + 1;
+            int x = (int) (Math.random() * 2) + 1;
+            if (one.type == "Thief") {
+                if (y == 1) {
+                    two.takeAttack(one, one.attack());
+                    System.out.println("Attacked");
+                } else if (y == 2) {
+                    System.out.println("Tries to use a potion");
+                    for (int i = 0; i < one.getInventory().size(); i++) {
+                        if (one.getInventory().get(i) instanceof Potion) {
+                            one.drinkPotion((Potion) one.getInventory().get(i));
+                            System.out.println("Used potion");
+                        }
+                    }
+                } else {
+                    if (x == 1) {
+                        System.out.println("Thief Tries to steal a potion");
+                        if (one.getInventory().size() < one.getInventorySize()) {
+                            for (int i = 0; i < two.getInventory().size(); i++) {
+                                if (two.getInventory().get(i) instanceof Potion) {
+                                    ArrayList<Item> newOne = one.getInventory();
+                                    ArrayList<Item> newTwo = two.getInventory();
+                                    newOne.add(newTwo.get(i));
+                                    newTwo.remove(newTwo.get(i));
+                                    one.drinkPotion((Potion) newOne.get(i));
+                                    one.setInventory(newOne);
+                                    two.setInventory(newTwo);
+                                    System.out.println("Thief has stolen and used a potion!");
+                                }
+                            }
+                        }
+                    }
+                }
+                if (two.isDead()) {
+                    one.moveTo(two.getLocation());
+                    one.setInBattle(false);
+                    one.setBattle(null);
+                    one.newKill();
+                    two.setInBattle(false);
+                    two.setBattle(null);
+                }
+                holder = one;
+                one = two;
+                two = holder;
+                turnTaken = true;
+            } else {
+                if (x == 1) {
+                    int h = two.takeAttack(one, one.attack());
+                    if (one.type == "Healer") {
+                        one.setHp(one.getHp() + (int) (h * .25));
+                        if (one.getHp() > one.getMaxHp()) {
+                            one.setHp(one.getMaxHp());
+                        }
+                        System.out.println("Healer healed for: " + (int) (h * .25));
+                    }
+                    System.out.println("Attacked");
+                } else {
+                    System.out.println("Tries to use a potion");
+                    for (int i = 0; i < one.getInventory().size(); i++) {
+                        if (one.getInventory().get(i) instanceof Potion) {
+                            one.drinkPotion((Potion) one.getInventory().get(i));
+                            System.out.println("Used potion");
+                        }
+                    }
+                }
+                if (two.isDead()) {
+                    one.moveTo(two.getLocation());
+                    one.setInBattle(false);
+                    one.setBattle(null);
+                    one.newKill();
+                    two.setInBattle(false);
+                    two.setBattle(null);
+                }
+                holder = one;
+                one = two;
+                two = holder;
+                turnTaken = true;
             }
-            holder = one;
-            one = two;
-            two = holder;
-            turnTaken = true;
         } else {
             turnTaken = false;
         }
-    } 
+    }
 }

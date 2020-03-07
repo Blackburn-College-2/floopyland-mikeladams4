@@ -13,12 +13,10 @@ import java.awt.Point;
  *
  * @author mikel.adams
  */
-public class Healer extends Heroes{
+public class Healer extends Heroes {
 
-    
     public Healer(GameBoard gameboard, Point location) {
         super(gameboard, location);
-        super.maxHp = 1000;
         super.name = "Healer";
         super.type = "Healer";
         super.color = "green";

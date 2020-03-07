@@ -16,7 +16,6 @@ public class Soldier extends Heroes{
     
     public Soldier(GameBoard gameboard, Point location) {
         super(gameboard, location);
-        super.maxHp = 1000;
         super.name = "Soldier";
         super.type = "Soldier";
         super.color = "red";
