@@ -303,7 +303,7 @@ public class Heroes extends BaseHero {
                     if (gameboard.getGameSquare(location).hasItems() == true) {
                         pickUpItems(gameboard.getGameSquare(location).getItems());
                     }
-                    int x = (int) (Math.random() * 2) + 1;
+                    int x = (int) (Math.random() * 5) + 1;
                     if (x == 1) {
                         for (int i = 0; i < inventory.size(); i++) {
                             if (inventory.get(i) instanceof Potion) {

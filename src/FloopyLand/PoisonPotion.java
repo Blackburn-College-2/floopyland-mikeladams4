@@ -13,7 +13,7 @@ public class PoisonPotion extends Potion{
 
     public PoisonPotion() {
         super("Vial of Poison");
-        super.color = "purple";
+        super.color = "https://vignette.wikia.nocookie.net/ageofmagicgame/images/4/48/Experience_Potion.png/revision/latest?cb=20170915103844";
     }
 
     @Override
@@ -22,6 +22,9 @@ public class PoisonPotion extends Potion{
         x.setHp((x.getHp() - 30));
         if (uses <= 0) {
             empty = true;
+        }
+        if (x.getHp() <= 0){
+            x.die();
         }
     }
     

@@ -16,7 +16,7 @@ public class StrengthPotion extends Potion {
 
     public StrengthPotion() {
         super("Potion of Strength");
-        super.color = "brown";
+        super.color = "https://gamepedia.cursecdn.com/lolesports_gamepedia_en/f/f7/Hunter%27s_Potion.png?version=611d0e9fea5c5610f60f43be40c91370";
     }
 
     @Override

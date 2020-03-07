@@ -13,7 +13,7 @@ public class Tome extends Items{
     
     public Tome() {
         super("Tome of Misdirection");
-        super.color = "yellow";
+        super.color = "https://gamepedia.cursecdn.com/lolesports_gamepedia_en/a/a7/Morellonomicon.png?version=8cc78c139d00ce2ce96817cb3e52e2df";
     }
     
 }

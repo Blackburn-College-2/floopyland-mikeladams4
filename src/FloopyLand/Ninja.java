@@ -18,7 +18,7 @@ public class Ninja extends Heroes {
         super(gameboard, location);
         super.name = "Ninja";
         super.type = "Ninja";
-        super.color = "black";
+        super.color = "https://www.llumac.cat/iconpics/f/38/385716/ninja-mask-png.png";
     }
 
     @Override

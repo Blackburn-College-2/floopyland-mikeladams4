@@ -16,7 +16,7 @@ public class HealthPotion extends Potion {
 
     public HealthPotion() {
         super("Potion of Health");
-        super.color = "red";
+        super.color = "https://www.pngfind.com/pngs/m/293-2930388_62kib-864x1022-health-potion-transparent-potion-hd-png.png";
     }
 
     @Override

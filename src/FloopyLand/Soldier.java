@@ -18,7 +18,7 @@ public class Soldier extends Heroes{
         super(gameboard, location);
         super.name = "Soldier";
         super.type = "Soldier";
-        super.color = "red";
+        super.color = "https://www.pikpng.com/pngl/b/526-5264691_medieval-helmet-png-465361-norman-helmet-png-clipart.png";
         super.inventorySize = 4;
     }
     

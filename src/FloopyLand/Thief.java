@@ -18,7 +18,7 @@ public class Thief extends Heroes {
         super(gameboard, location);
         super.name = "Thief";
         super.type = "Thief";
-        super.color = "brown";
+        super.color = "https://vignette.wikia.nocookie.net/roblox/images/6/6f/ThiefPNG.png/revision/latest?cb=20161127134752";
     }
 
 }

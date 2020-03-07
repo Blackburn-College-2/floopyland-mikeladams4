@@ -19,6 +19,6 @@ public class Healer extends Heroes {
         super(gameboard, location);
         super.name = "Healer";
         super.type = "Healer";
-        super.color = "green";
+        super.color = "https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/green-heart.png";
     }
 }

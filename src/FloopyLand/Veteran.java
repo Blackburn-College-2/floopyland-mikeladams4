@@ -18,7 +18,7 @@ public class Veteran extends Heroes {
         super(gameboard, location);
         super.name = "Veteran";
         super.type = "Veteran";
-        super.color = "purple";
+        super.color = "https://upload.wikimedia.org/wikipedia/commons/2/27/Army-USA-OR-05.svg";
     }
 
     @Override

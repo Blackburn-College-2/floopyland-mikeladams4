@@ -20,7 +20,7 @@ public class Tanker extends Heroes{
         super.hp = maxHp;
         super.name = "Tanker";
         super.type = "Tanker";
-        super.color = "blue";
+        super.color = "http://clipart-library.com/image_gallery2/Shield-PNG.png";
     }
     
 }

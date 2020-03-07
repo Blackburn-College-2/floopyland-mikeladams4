@@ -37,13 +37,13 @@ public class Battle {
 
     public void tick() {
         if (turnTaken == false) {
-            int y = (int) (Math.random() * 3) + 1;
-            int x = (int) (Math.random() * 2) + 1;
+            int y = (int) (Math.random() * 2) + 1;
+            int x = (int) (Math.random() * 5) + 1;
             if (one.type == "Thief") {
-                if (y == 1) {
+                if (x < 4) {
                     two.takeAttack(one, one.attack());
                     System.out.println("Attacked");
-                } else if (y == 2) {
+                } else if (x == 4) {
                     System.out.println("Tries to use a potion");
                     for (int i = 0; i < one.getInventory().size(); i++) {
                         if (one.getInventory().get(i) instanceof Potion) {
@@ -51,8 +51,8 @@ public class Battle {
                             System.out.println("Used potion");
                         }
                     }
-                } else {
-                    if (x == 1) {
+                } else if (x == 5) {
+                    if (y == 1) {
                         System.out.println("Thief Tries to steal a potion");
                         if (one.getInventory().size() < one.getInventorySize()) {
                             for (int i = 0; i < two.getInventory().size(); i++) {
@@ -83,7 +83,7 @@ public class Battle {
                 two = holder;
                 turnTaken = true;
             } else {
-                if (x == 1) {
+                if (x > 1) {
                     int h = two.takeAttack(one, one.attack());
                     if (one.type == "Healer") {
                         one.setHp(one.getHp() + (int) (h * .25));
